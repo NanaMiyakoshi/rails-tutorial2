@@ -1,0 +1,26 @@
+version: '3.5'
+services:
+  app:
+    build: .
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    image: app
+    volumes:
+      - ./:/app:delegated
+      - /tmp
+    ports:
+      - 3000:3000
+  db:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: roots
+volumes:
+  db-data:

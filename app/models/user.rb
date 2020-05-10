@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    has_many :microposts
+    has_many :microposts, dependent: :destroy
     include Gravtastic
     gravtastic
     attr_accessor :remember_token, :activation_token, :reset_token
